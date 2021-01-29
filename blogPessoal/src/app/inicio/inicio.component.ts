@@ -14,9 +14,9 @@ export class InicioComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-    // if(environment.token == ''){
-    //   alert("Sua seção expirou, por favor, faça o login novamente!")
-    //   this.routh.navigate(["/entrar"])
-    // }
+    if(environment.token == ''){
+      alert("Sua seção expirou, por favor, faça o login novamente!")
+      this.routh.navigate(["/entrar"])
+    }
   }
 }
