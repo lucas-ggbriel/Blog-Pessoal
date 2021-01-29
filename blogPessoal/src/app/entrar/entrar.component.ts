@@ -12,7 +12,6 @@ import { AutenticacaoService } from '../service/autenticacao.service';
 export class EntrarComponent implements OnInit {
 
   usuarioLogin: UsuarioLogin = new UsuarioLogin()
-
   constructor(
     private entrar: AutenticacaoService,
     private router: Router
@@ -27,8 +26,13 @@ export class EntrarComponent implements OnInit {
       this.usuarioLogin = resp
 
       environment.foto = this.usuarioLogin.foto
+      environment.token = this.usuarioLogin.token
+      environment.nome = this.usuarioLogin.nome
 
-
+      console.log(environment.foto)
+      console.log(environment.token)
+      console.log(environment.nome)
+      
       this.router.navigate(["/inicio"])
     }, erro => {if(erro.status == 500){
       alert("Usuário ou senha incorreto!")
