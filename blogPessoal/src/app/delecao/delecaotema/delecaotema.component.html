@@ -1,23 +1,30 @@
-<div class="container mb-5 mt-5">
+<div class="container mb-5 mt-5 text-secondary">
 
     <div class="row d-flex justify-content-center">
+
         <div class="col-md-8 text-center">
+
             <h1>Apagar tema</h1>
+
             <div class="row d-flex justify-content-center">
 
                 <div class="form-group">
 
-                    <label for="deleteTema">Deseja realmente deletar este tema?</label>
+                    <h5>Tema: {{tema.descricao}}</h5>
+                    <label for="deleteTema">Deseja realmente deletar este tema?<p>Ao deletar um tema, todas as
+                            publicações associadas a ele também são excluídas.</p></label>
+                    <div>
+                        <button class="btn btn-dark mr-4" routerLink="/tema">Cancelar</button>
+                        <button class="btn btn-danger" id="deleteTema" (click)="deletarTema()">Deletar</button>
+                    </div>
 
-                    <p>Ao deletar um tema, todas as publicações associadas a ele também são excluídas.</p>
-
-                    <button class="btn btn-danger" id="deleteTema" (click) = "deletarTema()">Deletar</button>
 
                 </div>
 
             </div>
-            
 
         </div>
+
     </div>
+
 </div>
