@@ -3,5 +3,6 @@ export const environment = {
   token: "",
   nome: "",
   id: 0,
-  foto: ""
+  foto: "",
+  mensagemLogado: "Sua seção expirou, faça o login novamente para continuar navegando"
 };

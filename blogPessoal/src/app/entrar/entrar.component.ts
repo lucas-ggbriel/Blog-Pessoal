@@ -28,10 +28,6 @@ export class EntrarComponent implements OnInit {
       environment.foto = this.usuarioLogin.foto
       environment.token = this.usuarioLogin.token
       environment.nome = this.usuarioLogin.nome
-
-      console.log(environment.foto)
-      console.log(environment.token)
-      console.log(environment.nome)
       
       this.router.navigate(["/inicio"])
     }, erro => {if(erro.status == 500){
