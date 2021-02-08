@@ -13,6 +13,8 @@ export class TemaComponent implements OnInit {
   tema: Temas = new Temas()
   listaTemas: Temas[]
   
+  temaListagem: Temas = new Temas()
+  
   constructor(
    private routh: Router,
    private temaService: TemaService
@@ -33,8 +35,13 @@ export class TemaComponent implements OnInit {
     )
   }
 
+  findTemaById(id: number){
+    this.temaService.getByIdTemas(id).subscribe((resp: Temas) => {
+      this.temaListagem = resp
+    })
+  }
+
   cadastrar(){
-    
 
     this.temaService.postTemas(this.tema).subscribe((resp: Temas) => {
       this.tema = resp
@@ -43,6 +50,20 @@ export class TemaComponent implements OnInit {
       this.tema = new Temas()
     })
 
+  }
+
+  atualizarTema(){
+    this.temaService.putTemas(this.temaListagem).subscribe(() => {
+      alert('Tema atualizado com sucesso!')
+      this.findAllTemas()
+    })
+  }
+
+  deletarTema(id: number){
+    this.temaService.deleteTema(id).subscribe(() => {
+      alert('Tema deletado com sucesso!')
+      this.findAllTemas()
+    })
   }
 
 }

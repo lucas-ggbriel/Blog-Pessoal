@@ -11,7 +11,7 @@ export class MenuComponent implements OnInit {
   public nome = environment.nome
   public urlImgMenu = environment.foto
   
-  constructor(
+  constructor( 
     private router: Router
   ) { }
 

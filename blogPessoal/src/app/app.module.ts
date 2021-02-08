@@ -13,8 +13,6 @@ import { CadastrarComponent } from './cadastrar/cadastrar.component';
 import { FormsModule } from '@angular/forms';
 import { InicioComponent } from './inicio/inicio.component';
 import { TemaComponent } from './tema/tema.component';
-import { EdicaotemaComponent } from './edicao/edicaotema/edicaotema.component';
-import { DelecaotemaComponent } from './delecao/delecaotema/delecaotema.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +22,7 @@ import { DelecaotemaComponent } from './delecao/delecaotema/delecaotema.componen
     EntrarComponent,
     CadastrarComponent,
     InicioComponent,
-    TemaComponent,
-    EdicaotemaComponent,
-    DelecaotemaComponent
+    TemaComponent
   ],
   imports: [
     BrowserModule,
@@ -43,4 +39,5 @@ import { DelecaotemaComponent } from './delecao/delecaotema/delecaotema.componen
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
