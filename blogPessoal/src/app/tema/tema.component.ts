@@ -17,7 +17,7 @@ export class TemaComponent implements OnInit {
   
   constructor(
    private routh: Router,
-   private temaService: TemaService
+   private temaService: TemaService,
   ) { }
 
   ngOnInit(){
@@ -27,6 +27,7 @@ export class TemaComponent implements OnInit {
     }
 
     this.findAllTemas()
+    
   }
   
   findAllTemas(){
@@ -41,7 +42,7 @@ export class TemaComponent implements OnInit {
     })
   }
 
-  cadastrar(){
+  cadastrarTema(){
 
     this.temaService.postTemas(this.tema).subscribe((resp: Temas) => {
       this.tema = resp

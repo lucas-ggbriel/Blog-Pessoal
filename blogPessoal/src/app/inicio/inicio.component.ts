@@ -1,11 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
+import { Postagens } from '../model/Postagens';
 import { Temas } from '../model/Temas';
-import { AutenticacaoService } from '../service/autenticacao.service';
+import { Usuario } from '../model/Usuario';
+import { PostagemService } from '../service/postagem.service';
 import { TemaService } from '../service/tema.service';
+import { UsuarioService } from '../service/usuario.service';
 
 @Component({
   selector: 'app-inicio',
@@ -14,12 +15,20 @@ import { TemaService } from '../service/tema.service';
 })
 export class InicioComponent implements OnInit {
   temaLista: Temas[]
+  postagensLista: Postagens[]
+
   idTema: number
-  tema: Temas
+  tema: Temas = new Temas()
+
+  usuario: Usuario = new Usuario()
+
+  postagem: Postagens = new Postagens()
 
   constructor(
    private routh: Router,
-   private temaService: TemaService
+   private temaService: TemaService,
+   private usuarioService: UsuarioService,
+   private postagemService: PostagemService
   ) { }
 
   ngOnInit(){
@@ -27,6 +36,15 @@ export class InicioComponent implements OnInit {
       alert(environment.mensagemLogado)
       this.routh.navigate(["/entrar"])
     }
+
+    this.findAllTemas()
+    this.usuarioPostagem()
+  }
+
+  usuarioPostagem(){
+    return this.usuarioService.usuarioPostagem(environment.id).subscribe((resp: Usuario) => {
+      this.usuario = resp
+    })
   }
 
   findAllTemas(){
@@ -35,11 +53,33 @@ export class InicioComponent implements OnInit {
     })
   }
 
-  findTemaById(id: number){
-    return this.temaService.getByIdTemas(id).subscribe((resp: Temas) => {
-      this.tema = resp
+  findAllPostagens(){
+    return this.postagemService.listagemPostagens().subscribe((resp: Postagens[]) => {
+      this.postagensLista = resp
     })
   }
 
+  findTemaById(){
+    return this.temaService.getByIdTemas(this.idTema).subscribe((resp: Temas) => {
+      this.tema = resp
+    })
+  }
+  
+  findUsuario(){
+    
+  }
+
+  cadastrarPostagem(){
+
+    this.postagem.tema = this.tema
+    this.postagem.usuario = this.usuario
+
+    this.postagemService.cadastroPostagem(this.postagem).subscribe(() => {
+      alert("Postagem cadastrada com sucesso!")
+      this.findAllPostagens()
+    }
+    )
+
+  }
 
 }

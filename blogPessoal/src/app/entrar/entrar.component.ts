@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+import { Usuario } from '../model/Usuario';
 import { UsuarioLogin } from '../model/UsuarioLogin';
 import { AutenticacaoService } from '../service/autenticacao.service';
 
@@ -12,6 +13,9 @@ import { AutenticacaoService } from '../service/autenticacao.service';
 export class EntrarComponent implements OnInit {
 
   usuarioLogin: UsuarioLogin = new UsuarioLogin()
+
+  usuario: Usuario = new Usuario()
+  
   constructor(
     private entrar: AutenticacaoService,
     private router: Router
@@ -25,11 +29,10 @@ export class EntrarComponent implements OnInit {
     this.entrar.entrar(this.usuarioLogin).subscribe((resp: UsuarioLogin) => {
       this.usuarioLogin = resp
 
+      environment.id = this.usuarioLogin.id
       environment.foto = this.usuarioLogin.foto
       environment.token = this.usuarioLogin.token 
       environment.nome = this.usuarioLogin.nome
-
-      console.log(environment.token)
 
       this.router.navigate(["/inicio"])
     }, erro => {if(erro.status == 500){

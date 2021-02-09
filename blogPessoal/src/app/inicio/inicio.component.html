@@ -60,44 +60,47 @@
     </div>
 
 </div>
-
+ 
 
 
 <!-- Modal -->
 <div class="modal fade" id="novaPostagem" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    aria-labelledby="novaPostagem" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Nova postagem</h5>
+                <h5 class="modal-title" id="novaPostagem">Nova postagem</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
+
                 <div class="form-group">
                     <label for="titulo">Título</label>
-                    <input type="text" class="form-control" id="titulo">
+                    <input [(ngModel)] = "postagem.titulo" type="text" class="form-control" id="titulo">
                 </div>
 
                 <div class="form-group">
                     <label for="texto">Texto</label>
-                    <textarea type="text" class="form-control" name="texto" id="texto" cols="6" rows="4"></textarea>
+                    <textarea [(ngModel)] = "postagem.texto" type="text" class="form-control" name="texto" id="texto" cols="6" rows="4"></textarea>
                 </div>
                
                 <div class="form-group">
-                    <label for="tema">Escolha um tema ou <a data-dismiss="modal" routerLink="/tema">cadastre um novo </a>:</label>
-                    <select [(ngModel)] = "idTema" class="form-control" name="tema" id="tema">
-                        <option value="selecione">Selecione a opção</option>
+                    <label for="temapostagem">Escolha um tema ou <a data-dismiss="modal" routerLink="/tema">cadastre um novo </a>:</label>
+                    <select [(ngModel)] = "idTema" class="form-control" id="temapostagem" (change) = 'findTemaById()'>
                         <option *ngFor='let tema of temaLista' [value]="tema.id">{{tema.descricao}}</option>
                     </select>
                 </div>
                 
 
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Publicar</button>
+                <button type="button" class="btn btn-success" (click)  ='cadastrarPostagem()' data-dismiss="modal">Publicar</button>
             </div>
         </div>
     </div>
