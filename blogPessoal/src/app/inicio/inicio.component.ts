@@ -38,6 +38,7 @@ export class InicioComponent implements OnInit {
     }
 
     this.findAllTemas()
+    this.findAllPostagens()
     this.usuarioPostagem()
   }
 
@@ -63,10 +64,6 @@ export class InicioComponent implements OnInit {
     return this.temaService.getByIdTemas(this.idTema).subscribe((resp: Temas) => {
       this.tema = resp
     })
-  }
-  
-  findUsuario(){
-    
   }
 
   cadastrarPostagem(){
