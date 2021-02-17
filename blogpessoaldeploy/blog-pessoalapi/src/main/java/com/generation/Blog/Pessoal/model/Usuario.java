@@ -33,6 +33,7 @@ public class Usuario {
 	@Size(min = 5)
 	private String senha;
 	
+	
 	private String foto;
 	
 	private String tipo;

@@ -25,7 +25,7 @@ public class Postagens {
 	private Date data = new java.sql.Date(System.currentTimeMillis());
 	
 	@NotBlank
-	@Size(min = 5, max = 40)
+	@Size(min = 5, max = 500)
 	private String texto;
 	
 	@NotBlank
