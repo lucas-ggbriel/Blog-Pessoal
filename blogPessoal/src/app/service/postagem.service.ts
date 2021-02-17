@@ -26,8 +26,12 @@ export class PostagemService {
     return this.http.get<Postagens[]>('http://localhost:8080/Postagens', this.token)
   }
 
-  listarPostagensByTema(): Observable<Temas>{
+  listarPostagensByTema(id: number): Observable<Temas>{
     return this.http.get<Temas>('http://localhost:8080/temas', this.token)
+  }
+
+  listarPostagensByUser(id: number): Observable<Postagens[]>{
+    return this.http.get<Postagens[]>(`http://localhost:8080/Postagens/postagens/${id}`, this.token)
   }
 
 }

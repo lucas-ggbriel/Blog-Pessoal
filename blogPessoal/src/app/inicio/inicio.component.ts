@@ -16,6 +16,7 @@ import { UsuarioService } from '../service/usuario.service';
 export class InicioComponent implements OnInit {
   temaLista: Temas[]
   postagensLista: Postagens[]
+  postagensUser: Postagens[]
 
   idTema: number
   tema: Temas = new Temas()
@@ -60,6 +61,18 @@ export class InicioComponent implements OnInit {
     })
   }
 
+  findPostagemByTema(id: number){
+    return this.postagemService.listarPostagensByTema(id).subscribe((resp: Temas) => {
+
+    })
+  }
+
+  findPostagemByUser(){
+    return this.postagemService.listarPostagensByUser(environment.id).subscribe((resp: Postagens[]) => {
+      this.postagensUser = resp
+    })
+  }
+
   findTemaById(){
     return this.temaService.getByIdTemas(this.idTema).subscribe((resp: Temas) => {
       this.tema = resp
@@ -74,6 +87,7 @@ export class InicioComponent implements OnInit {
     this.postagemService.cadastroPostagem(this.postagem).subscribe(() => {
       alert("Postagem cadastrada com sucesso!")
       this.findAllPostagens()
+      this.postagem = new Postagens()
     }
     )
 
