@@ -1,6 +1,7 @@
 package com.generation.Blog.Pessoal.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,11 @@ public class PostagensController {
 	@GetMapping
 	public ResponseEntity<List<Postagens>> getPostagens(){
 		return ResponseEntity.ok(postagensRepository.findAll());
+	}
+	
+	@GetMapping("{id}")
+	public ResponseEntity<Optional<Postagens>> getPostagensById(@PathVariable long id){
+		return ResponseEntity.ok(postagensRepository.findById(id));
 	}
 	
 	@GetMapping("/postagens/{id}")
