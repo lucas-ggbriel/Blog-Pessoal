@@ -33,10 +33,10 @@ export class InicioComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-    if(environment.token == ''){
-      alert(environment.mensagemLogado)
-      this.routh.navigate(["/entrar"])
-    }
+    // if(environment.token == ''){
+    //   alert(environment.mensagemLogado)
+    //   this.routh.navigate(["/entrar"])
+    // }
 
     this.findAllTemas()
     this.findAllPostagens()
