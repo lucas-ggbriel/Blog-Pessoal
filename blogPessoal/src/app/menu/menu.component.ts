@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+import { Usuario } from '../model/Usuario';
+import { UsuarioService } from '../service/usuario.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,9 +12,10 @@ import { environment } from 'src/environments/environment.prod';
 export class MenuComponent implements OnInit {
   public nome = environment.nome
   public urlImgMenu = environment.foto
-  
+  usuario: Usuario = new Usuario()
   constructor( 
-    private router: Router
+    private router: Router,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit(){
@@ -24,5 +27,11 @@ export class MenuComponent implements OnInit {
     environment.token = ''
     environment.nome = ''
     environment.foto = ''
+  }
+
+  getUsuarioById(){
+    return this.usuarioService.usuarioPostagem(environment.id).subscribe((resp: Usuario) => {
+      this.usuario = resp
+    })
   }
 }

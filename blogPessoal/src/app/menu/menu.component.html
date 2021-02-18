@@ -14,14 +14,54 @@
         <p class="m-0 font-weight-bold text-white fs-16">Olá, {{nome}}!</p>
       </li>
       <li>
-       <a href=""><p class="text-white fs-16 m-0"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-       </p></a>
+        <a data-toggle="modal"
+        data-target="#edicaoUser">
+          <p class="text-white fs-16 m-0"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </p>
+        </a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto d-flex align-items-center">
-     
-      <a (click) = 'sair()' class="m-0 font-weight-bold text-white fs-16">Sair <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+
+      <a (click)='sair()' class="m-0 font-weight-bold text-white fs-16">Sair <i class="fa fa-sign-out"
+          aria-hidden="true"></i></a>
     </ul>
   </div>
 </nav>
+
+<!-- Edição de dados do usuário -->
+<div class="modal fade" id="edicaoUser" tabindex="-1" aria-labelledby="edicaoUser" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header d-flex justify-content-center">
+        <h5 class="modal-title" id="edicaoUser">Edição de dados</h5>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-6">
+            <img [src]="urlImgMenu" alt="Imagem do usuário logado" class="img-fluid img-thumbnail">
+           
+            <div class="form-group pt-5 text-center">
+              <label for="imagemUser" class="text-center">Imagem do usuário:</label>
+              <input type="text" class="form-control" id="imagemUser">
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-dark" data-dismiss="modal" >Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" >Salvar
+          edição</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- /edição de dados do usuário -->
