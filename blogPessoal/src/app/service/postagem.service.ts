@@ -26,12 +26,24 @@ export class PostagemService {
     return this.http.get<Postagens[]>('http://localhost:8080/Postagens', this.token)
   }
 
-  listarPostagensByTema(id: number): Observable<Temas>{
+  listarPostagensByTema(): Observable<Temas>{
     return this.http.get<Temas>('http://localhost:8080/temas', this.token)
   }
 
   listarPostagensByUser(id: number): Observable<Postagens[]>{
     return this.http.get<Postagens[]>(`http://localhost:8080/Postagens/postagens/${id}`, this.token)
+  }
+
+  postagemPorId(id: number): Observable<Postagens>{
+    return this.http.get<Postagens>(`http://localhost:8080/Postagens/${id}`, this.token)
+  }
+  
+  putPostagem(postagem: Postagens): Observable<Postagens>{
+    return this.http.put<Postagens>('http://localhost:8080/Postagens', postagem, this.token)
+  }
+
+  deletarPostagem(id: number){
+    return this.http.delete(`http://localhost:8080/Postagens/${id}`, this.token)
   }
 
 }
