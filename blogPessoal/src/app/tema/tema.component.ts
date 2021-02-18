@@ -24,10 +24,9 @@ export class TemaComponent implements OnInit {
     if(environment.token == ''){
       alert(environment.mensagemLogado)
       this.routh.navigate(["/entrar"])
+    }else{
+      this.findAllTemas()
     }
-
-    this.findAllTemas()
-    
   }
   
   findAllTemas(){

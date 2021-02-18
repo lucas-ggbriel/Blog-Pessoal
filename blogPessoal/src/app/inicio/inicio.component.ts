@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
@@ -42,14 +43,18 @@ export class InicioComponent implements OnInit {
   ) { }
 
   ngOnInit(){
+    console.log(environment.id)
+    console.log(environment.nome)
+    console.log(environment.token)
+
     if(environment.token == ''){
       alert(environment.mensagemLogado)
       this.routh.navigate(["/entrar"])
+    }else{
+      this.findAllTemas()
+      this.findAllPostagens()
+      this.usuarioPostagem()
     }
-
-    this.findAllTemas()
-    this.findAllPostagens()
-    this.usuarioPostagem()
   }
 
   // método para busca dos dados do usuário que está cadastrando uma postagem
@@ -133,12 +138,13 @@ export class InicioComponent implements OnInit {
 
   // método para atualização de uma postagem
   putPostagem(){
-    
     this.postagem.tema = this.temaCadastro
 
     return this.postagemService.putPostagem(this.postagem).subscribe(() => {
       alert("Postagem atualizada com sucesso!")
       this.findPostagemByUser()
+      this.postagem = new Postagens()
+      this.idTemaCadastro = 0
     })
   }
 
@@ -148,6 +154,14 @@ export class InicioComponent implements OnInit {
       alert("Postagem deletada com sucesso!")
 
       this.findPostagemByUser()
+      this.postagem = new Postagens()
+      this.idTemaCadastro = 0
     })
+  }
+
+  // limpar campos do objeto postagem
+  limpar(){
+    this.postagem = new Postagens()
+    this.idTemaCadastro = 0
   }
 }
