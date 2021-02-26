@@ -20,4 +20,6 @@ export class UsuarioService {
   usuarioPostagem(id: number): Observable<Usuario>{
     return this.http.get<Usuario>(`http://localhost:8080/usuario/${id}`, this.token)
   }
+
+  
 }
