@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { Usuario } from '../model/Usuario';
+import { UsuarioLogin } from '../model/UsuarioLogin';
 import { UsuarioService } from '../service/usuario.service';
 
 @Component({
@@ -15,6 +16,8 @@ export class MenuComponent implements OnInit {
   public urlImgMenu = environment.foto
 
   usuario: Usuario = new Usuario()
+
+  userLogin: UsuarioLogin= new UsuarioLogin()
 
   constructor( 
     private router: Router,
@@ -48,7 +51,7 @@ export class MenuComponent implements OnInit {
       environment.foto = this.usuario.foto
       environment.nome = this.usuario.nome
 
-      alert("Usuário cadastrado com sucesso")
+      alert("Usuário atualizado com sucesso!")
     })
   }
 

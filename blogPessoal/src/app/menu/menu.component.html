@@ -14,8 +14,7 @@
         <p class="m-0 font-weight-bold text-white fs-16">Olá, {{nome}}!</p>
       </li>
       <li>
-        <a data-toggle="modal"
-        data-target="#edicaoUser">
+        <a data-toggle="modal" data-target="#edicaoUser">
           <p class="text-white fs-16 m-0"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </p>
         </a>
@@ -41,29 +40,67 @@
 
       <div class="modal-body">
 
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-6">
+        <div class="row d-flex justify-content-center pt-3">
+          <div class="col-md-10">
             <img [src]="usuario.foto" alt="Imagem do usuário logado" class="img-fluid img-thumbnail">
-           
-            <div class="form-group pt-5 text-center">
-              <label for="imagemUser" class="text-center">Sua imagem:</label>
-              <input [(ngModel)] = "usuario.foto" type="text" class="form-control" id="imagemUser">
+
+            <div class="form-group pt-5 text-left">
+              <label for="imagemUser">Imagem:</label>
+              <input [(ngModel)]="usuario.foto" type="text" class="form-control" id="imagemUser">
             </div>
 
-            <div class="form-group pt-1 text-center">
-              <label for="imagemUser" class="text-center">Seu nome:</label>
-              <input [(ngModel)] = "usuario.nome" type="text" class="form-control" id="imagemUser">
+            <div class="form-group pt-1 text-left">
+              <label for="nomeUser">Nome:</label>
+              <input [(ngModel)]="usuario.nome" type="text" class="form-control" id="nomeUser">
             </div>
-
 
           </div>
         </div>
 
+        <div class="row d-flex justify-content-center pt-3">
+          <div class="col-md-12">
+
+            <p class="text-center">
+              <a class="btn btn-primary" data-toggle="collapse" href="#trocadesenha" role="button"
+                aria-expanded="false" aria-controls="collapseExample">
+                Alterar senha
+              </a>
+            </p>
+
+            <div class="collapse" id="trocadesenha">
+              <div class="card card-body">
+                
+                <div class="form-group pt-1 text-left">
+                  <label for="senhaAtual">Sua senha atual:</label>
+                  <input [(ngModel)]="usuario.foto" type="text" class="form-control" id="senhaAtual">
+                </div>
+
+                <div class="form-group pt-1 text-left">
+                  <label for="novaSenha">Sua senha atual:</label>
+                  <input [(ngModel)]="usuario.foto" type="text" class="form-control" id="novaSenha">
+                </div>
+
+                <p class="text-center">
+                  <button class="btn btn-success">Alterar</button>
+                </p>
+
+              </div>
+            </div>
+            
+            <p class="text-center">
+              <button type="button" class="btn btn-link text-danger">Apagar conta</button>
+            </p>
+
+          </div>
+
+        </div>
+
+
       </div>
 
       <div class="modal-footer d-flex justify-content-between">
-        <button type="button" class="btn btn-dark" data-dismiss="modal" >Cancelar</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" >Salvar
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click) = "putUsuario()">Salvar
           edição</button>
       </div>
 
