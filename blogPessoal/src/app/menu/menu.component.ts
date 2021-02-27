@@ -10,15 +10,20 @@ import { UsuarioService } from '../service/usuario.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+ 
   public nome = environment.nome
   public urlImgMenu = environment.foto
+
   usuario: Usuario = new Usuario()
+
   constructor( 
     private router: Router,
     private usuarioService: UsuarioService
-  ) { }
+  ) {}
 
+  
   ngOnInit(){
+    this.getUsuarioById()
   }
 
   sair(){
@@ -29,9 +34,27 @@ export class MenuComponent implements OnInit {
     environment.foto = ''
   }
 
-  getUsuarioById(){
+  getUsuarioById(){  
     return this.usuarioService.usuarioPostagem(environment.id).subscribe((resp: Usuario) => {
       this.usuario = resp
     })
   }
+
+  putUsuario(){
+    return this.usuarioService.atualizaUsuario(this.usuario).subscribe((resp: Usuario) => {
+      
+      this.usuario = resp
+
+      environment.foto = this.usuario.foto
+      environment.nome = this.usuario.nome
+
+      alert("Usuário cadastrado com sucesso")
+    })
+  }
+
+  deleteUsuario(){
+    return this.usuarioService.deletarUsuario(environment.id).subscribe(() => {
+    })
+  }
+
 }

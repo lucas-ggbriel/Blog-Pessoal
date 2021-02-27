@@ -21,5 +21,12 @@ export class UsuarioService {
     return this.http.get<Usuario>(`http://localhost:8080/usuario/${id}`, this.token)
   }
 
+  atualizaUsuario(user: Usuario): Observable<Usuario>{
+    return this.http.put<Usuario>('http://localhost:8080/usuario', user, this.token)
+  }
+
+  deletarUsuario (id:number): Observable<Usuario>{
+    return this.http.delete<Usuario>(`http://localhost:8080/usuario//deletar/${id}`, this.token)
+  }
   
 }
