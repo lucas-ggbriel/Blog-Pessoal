@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { Usuario } from '../model/Usuario';
 import { UsuarioLogin } from '../model/UsuarioLogin';
+import { AutenticacaoService } from '../service/autenticacao.service';
 import { UsuarioService } from '../service/usuario.service';
 
 @Component({
@@ -11,52 +11,67 @@ import { UsuarioService } from '../service/usuario.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
- 
+
   public nome = environment.nome
   public urlImgMenu = environment.foto
 
+  novaSenha: string
+
   usuario: Usuario = new Usuario()
 
-  userLogin: UsuarioLogin= new UsuarioLogin()
+  userLogin: UsuarioLogin = new UsuarioLogin()
 
-  constructor( 
-    private router: Router,
-    private usuarioService: UsuarioService
-  ) {}
+  constructor(
+    private usuarioService: UsuarioService,
+    private autenticacao: AutenticacaoService
+  ) { }
 
-  
-  ngOnInit(){
+
+  ngOnInit() {
     this.getUsuarioById()
   }
 
-  sair(){
-    this.router.navigate(["/entrar"])
-    environment.id = 0
-    environment.token = ''
-    environment.nome = ''
-    environment.foto = ''
+  sair() {
+    this.autenticacao.sair()
   }
 
-  getUsuarioById(){  
+  getUsuarioById() {
     return this.usuarioService.usuarioPostagem(environment.id).subscribe((resp: Usuario) => {
       this.usuario = resp
     })
   }
 
-  putUsuario(){
+  putUsuario() {
+    console.log(this.usuario)
+
     return this.usuarioService.atualizaUsuario(this.usuario).subscribe((resp: Usuario) => {
-      
+
       this.usuario = resp
+
+      this.getUsuarioById()
 
       environment.foto = this.usuario.foto
       environment.nome = this.usuario.nome
+
+      this.nome = environment.nome
+      this.urlImgMenu = environment.foto
 
       alert("Usuário atualizado com sucesso!")
     })
   }
 
-  deleteUsuario(){
-    return this.usuarioService.deletarUsuario(environment.id).subscribe(() => {
+  alterarSenha() {
+    this.userLogin.id = environment.id
+
+    this.usuarioService.trocaSenha(this.userLogin, this.novaSenha).subscribe((resp: UsuarioLogin) => {
+
+      alert("Senha alterada com sucesso!")
+      this.autenticacao.sair()
+
+    }, erro =>{
+      if(erro.status == 500){
+        alert("O campo 'senha atual' não corresponde a senha atual!")
+      }
     })
   }
 

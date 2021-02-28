@@ -43,14 +43,11 @@ export class InicioComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-    console.log(environment.id)
-    console.log(environment.nome)
-    console.log(environment.token)
-
     if(environment.token == ''){
       alert(environment.mensagemLogado)
       this.routh.navigate(["/entrar"])
     }else{
+      window.scroll(0,0)
       this.findAllTemas()
       this.findAllPostagens()
       this.usuarioPostagem()

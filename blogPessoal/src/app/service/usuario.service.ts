@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, ObservedValuesFromArray } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Usuario } from '../model/Usuario';
+import { UsuarioLogin } from '../model/UsuarioLogin';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,12 @@ export class UsuarioService {
     return this.http.put<Usuario>('http://localhost:8080/usuario', user, this.token)
   }
 
+  trocaSenha(usuarioLogin: UsuarioLogin, novaSenha: String): Observable<UsuarioLogin>{
+    return this.http.put<UsuarioLogin>(`http://localhost:8080/usuario/trocaSenha/${novaSenha}`, usuarioLogin,this.token)
+  }
+
   deletarUsuario (id:number): Observable<Usuario>{
-    return this.http.delete<Usuario>(`http://localhost:8080/usuario//deletar/${id}`, this.token)
+    return this.http.delete<Usuario>(`http://localhost:8080/usuario/deletar/${id}`, this.token)
   }
   
 }

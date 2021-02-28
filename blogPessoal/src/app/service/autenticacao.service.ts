@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Usuario } from '../model/Usuario';
@@ -10,7 +11,10 @@ import { UsuarioLogin } from '../model/UsuarioLogin';
 })
 export class AutenticacaoService {
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+    ) {}
 
   entrar(usuarioLogin: UsuarioLogin):Observable<UsuarioLogin> {
     return this.http.post<UsuarioLogin>('http://localhost:8080/usuario/logar', usuarioLogin)
@@ -28,5 +32,13 @@ export class AutenticacaoService {
     }
     
     return ok
+  }
+
+  sair(){
+    this.router.navigate(["/entrar"])
+    environment.id = 0
+    environment.token = ''
+    environment.nome = ''
+    environment.foto = ''
   }
 }

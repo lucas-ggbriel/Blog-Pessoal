@@ -61,7 +61,7 @@
           <div class="col-md-12">
 
             <p class="text-center">
-              <a class="btn btn-primary" data-toggle="collapse" href="#trocadesenha" role="button"
+              <a class="btn-link text-primary" data-toggle="collapse" href="#trocadesenha" role="button"
                 aria-expanded="false" aria-controls="collapseExample">
                 Alterar senha
               </a>
@@ -71,24 +71,24 @@
               <div class="card card-body">
                 
                 <div class="form-group pt-1 text-left">
-                  <label for="senhaAtual">Sua senha atual:</label>
-                  <input [(ngModel)]="usuario.foto" type="text" class="form-control" id="senhaAtual">
+                  <label for="senhaAtual">Digite sua senha atual:</label>
+                  <input [(ngModel)] = "userLogin.senha" type="text" class="form-control" id="senhaAtual">
                 </div>
 
                 <div class="form-group pt-1 text-left">
-                  <label for="novaSenha">Sua senha atual:</label>
-                  <input [(ngModel)]="usuario.foto" type="text" class="form-control" id="novaSenha">
+                  <label for="novaSenha">Digite sua nova senha:</label>
+                  <input [(ngModel)] = "novaSenha" type="text" class="form-control" id="novaSenha">
                 </div>
 
                 <p class="text-center">
-                  <button class="btn btn-success">Alterar</button>
+                  <button class="btn btn-success" (click) = "alterarSenha()">Alterar</button>
                 </p>
 
               </div>
             </div>
             
             <p class="text-center">
-              <button type="button" class="btn btn-link text-danger">Apagar conta</button>
+              <button type="button" class="btn btn-link text-danger" data-dismiss="modal" routerLink="/delecao">Apagar conta</button>
             </p>
 
           </div>
