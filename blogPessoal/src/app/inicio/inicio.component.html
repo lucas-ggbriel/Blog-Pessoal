@@ -111,7 +111,7 @@
                             <button class="btn btn-link" data-toggle="modal" data-target="#edicaop"
                                 (click)="findPostagemById(post.id)">Editar</button>
 
-                            <button class="btn btn-link color-red" data-toggle="modal"
+                            <button class="btn btn-link text-dark" data-toggle="modal"
                                 data-target="#delecaop" (click)="findPostagemById(post.id)">Deletar</button>
 
                         </div>
@@ -206,8 +206,8 @@
             </div>
 
             <div class="modal-footer d-flex justify-content-between">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" (click) = "limpar()">Cancelar</button>
-                <button type="button" class="btn btn-success" (click)='cadastrarPostagem()'
+                <button type="button" class="btn btn-dark" data-dismiss="modal" (click) = "limpar()">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)='cadastrarPostagem()'
                     data-dismiss="modal">Publicar</button>
             </div>
         </div>
