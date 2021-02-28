@@ -12,8 +12,8 @@ import { UsuarioService } from '../service/usuario.service';
 })
 export class MenuComponent implements OnInit {
 
-  public nome = environment.nome
-  public urlImgMenu = environment.foto
+  nome = environment.nome
+  urlImgMenu = environment.foto
 
   novaSenha: string
 
@@ -64,12 +64,12 @@ export class MenuComponent implements OnInit {
     this.userLogin.id = environment.id
 
     this.usuarioService.trocaSenha(this.userLogin, this.novaSenha).subscribe((resp: UsuarioLogin) => {
-
       alert("Senha alterada com sucesso!")
-      this.autenticacao.sair()
+      this.userLogin.senha = ""
+      this.novaSenha = ""
 
     }, erro =>{
-      if(erro.status == 500){
+      if(erro.status == 400){
         alert("O campo 'senha atual' não corresponde a senha atual!")
       }
     })
