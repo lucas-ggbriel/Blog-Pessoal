@@ -31,18 +31,17 @@ public class UsuarioService {
 		}
 	}
 	
-	public String trocaSenha(UserLogin user, String novaSenha) {
+	public UserLogin trocaSenha(UserLogin user, String novaSenha) {
 		Usuario usuario = repository.findUsuarioById(user.getId());
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
 		novaSenha = encoder.encode(novaSenha);
-		
 		usuario.setSenha(novaSenha);
 		
 		repository.save(usuario);
 		
-		return "senha alterada";
+		return user;
 	}
 	
 	public Usuario CadastrarUsuario(Usuario usuario) {

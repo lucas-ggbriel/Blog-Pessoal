@@ -52,8 +52,7 @@ public class UsuarioController {
 		String resp = usuarioService.verificarUsuario(usuarioLogin);
 		
 		if(resp == "ok") {
-			usuarioService.trocaSenha(usuarioLogin, novaSenha)
-			return ResponseEntity.status(HttpStatus.OK).body(usuarioLogin);
+			return ResponseEntity.status(HttpStatus.OK).body(usuarioService.trocaSenha(usuarioLogin, novaSenha));
 		}else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(usuarioLogin);			
 		}
