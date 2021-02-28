@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,17 +20,29 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repository;
 	
-	public ResponseEntity.BodyBuilder verificarUsuario(UserLogin user) {
+	public String verificarUsuario(UserLogin user) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Usuario usuario = repository.findUsuarioById(user.getId());
 		
 		if(encoder.matches(user.getSenha(), usuario.getSenha())) {
-			usuario.setSenha(user.getSenha());
-			repository.save(usuario);
-			return ResponseEntity.status(HttpStatus.ACCEPTED);
+			return "ok";
 		}else {
-			return ResponseEntity.status(HttpStatus.CONFLICT);
+			return "falho";
 		}
+	}
+	
+	public String trocaSenha(UserLogin user, String novaSenha) {
+		Usuario usuario = repository.findUsuarioById(user.getId());
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		novaSenha = encoder.encode(novaSenha);
+		
+		usuario.setSenha(novaSenha);
+		
+		repository.save(usuario);
+		
+		return "senha alterada";
 	}
 	
 	public Usuario CadastrarUsuario(Usuario usuario) {
@@ -66,6 +76,7 @@ public class UsuarioService {
 			}
 		}
 		
-		return null;
+			return null;
+		
 	}
 }

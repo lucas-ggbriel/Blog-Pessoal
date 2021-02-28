@@ -47,14 +47,20 @@ public class UsuarioController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.CadastrarUsuario(usuario));
 	}
 
-	@PostMapping("/trocasenha")
-	public ResponseEntity.BodyBuilder trocarSenha(@RequestBody UserLogin usuarioLogin){
+	@PutMapping("/trocaSenha/{novaSenha}")
+	public ResponseEntity<UserLogin> validaSenha(@PathVariable String novaSenha, @RequestBody UserLogin usuarioLogin){
+		String resp = usuarioService.verificarUsuario(usuarioLogin);
 		
-		return usuarioService.verificarUsuario(usuarioLogin);
+		if(resp == "ok") {
+			usuarioService.trocaSenha(usuarioLogin, novaSenha)
+			return ResponseEntity.status(HttpStatus.OK).body(usuarioLogin);
+		}else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(usuarioLogin);			
+		}
 	}
-
+	
 	@PutMapping
-	public ResponseEntity<Usuario> putUser(Usuario user) {
+	public ResponseEntity<Usuario> putUser(@RequestBody Usuario user) {
 		return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.save(user));
 	}
 
