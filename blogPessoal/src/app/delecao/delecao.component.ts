@@ -19,8 +19,11 @@ export class DelecaoComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-
-    this.autenticacao.logado() == false
+    window.scroll(0,0)
+    if(environment.token == ''){
+      alert(environment.mensagemLogado)
+      this.autenticacao.sair()
+    }
   }
 
   delecaoUsuario(){

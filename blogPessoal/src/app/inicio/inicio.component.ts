@@ -1,10 +1,9 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { Postagens } from '../model/Postagens';
 import { Temas } from '../model/Temas';
 import { Usuario } from '../model/Usuario';
+import { AutenticacaoService } from '../service/autenticacao.service';
 import { PostagemService } from '../service/postagem.service';
 import { TemaService } from '../service/tema.service';
 import { UsuarioService } from '../service/usuario.service';
@@ -36,7 +35,7 @@ export class InicioComponent implements OnInit {
   ok: boolean = false
 
   constructor(
-   private routh: Router,
+   private auth: AutenticacaoService,
    private temaService: TemaService,
    private usuarioService: UsuarioService,
    private postagemService: PostagemService
@@ -45,7 +44,7 @@ export class InicioComponent implements OnInit {
   ngOnInit(){
     if(environment.token == ''){
       alert(environment.mensagemLogado)
-      this.routh.navigate(["/entrar"])
+      this.auth.sair()
     }else{
       window.scroll(0,0)
       this.findAllTemas()
@@ -113,7 +112,7 @@ export class InicioComponent implements OnInit {
       }else{
         this.ok = false
       }
-    })
+    }) 
   }
 
   // método para o cadastro de uma nova postagem
@@ -127,7 +126,7 @@ export class InicioComponent implements OnInit {
       this.postagem = new Postagens()
 
       this.findTemaById(this.idTema)
-      
+      this.findPostagemByUser()
       this.idTemaCadastro = 0
     }
     )

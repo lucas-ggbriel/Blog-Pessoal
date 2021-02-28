@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { Temas } from '../model/Temas';
+import { AutenticacaoService } from '../service/autenticacao.service';
 import { TemaService } from '../service/tema.service'
 
 @Component({
@@ -16,14 +16,14 @@ export class TemaComponent implements OnInit {
   temaListagem: Temas = new Temas()
   
   constructor(
-   private routh: Router,
    private temaService: TemaService,
+   private auth: AutenticacaoService
   ) { }
 
   ngOnInit(){
     if(environment.token == ''){
       alert(environment.mensagemLogado)
-      this.routh.navigate(["/entrar"])
+      this.auth.sair()
     }else{
       this.findAllTemas()
     }

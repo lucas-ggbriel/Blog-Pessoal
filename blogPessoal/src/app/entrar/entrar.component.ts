@@ -23,6 +23,10 @@ export class EntrarComponent implements OnInit {
 
   ngOnInit(){
     window.scroll(0,0)
+    if(environment.sair == 1){
+      environment.sair = 0
+      window.location.reload()
+    }
   }
 
   logar(){
@@ -41,4 +45,6 @@ export class EntrarComponent implements OnInit {
   }
       )
   }
+
+
 }
