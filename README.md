@@ -1,2 +1,2 @@
-# #Blog Pessoal
-Projeto de aplicação de conhecimentos de back e front-end
+# Blog Pessoal
+Este projeto é uma mini rede social (um blog 🤣). Foi desenvolvido utilizando o framework Angular 11.0.7 no front-end (linguagens utilizadas para desenvolvimento do front: TypeScript, html e css) e alguns frameworks do ecossistema Spring (Spring web; devtools; Spring JPA; Spring Security). A linguagem usada para o desenvolvimento back-end foi Java (versão 15). A base para o armazenamento de dados, em um primeiro moemnto foi o MySQL (durante o desenvolvimento da aplicação) e no deploy, 
