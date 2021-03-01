@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Usuario } from '../model/Usuario';
 import { UsuarioLogin } from '../model/UsuarioLogin';
+import { AlertasService } from '../service/alertas.service';
 import { AutenticacaoService } from '../service/autenticacao.service';
 import { UsuarioService } from '../service/usuario.service';
 
@@ -23,7 +24,8 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private autenticacao: AutenticacaoService
+    private autenticacao: AutenticacaoService,
+    private alertas: AlertasService
   ) { }
 
 
@@ -56,7 +58,7 @@ export class MenuComponent implements OnInit {
       this.nome = environment.nome
       this.urlImgMenu = environment.foto
 
-      alert("Usuário atualizado com sucesso!")
+      this.alertas.showAlertSucess("Usuário atualizado com sucesso!")
     })
   }
 
@@ -64,13 +66,13 @@ export class MenuComponent implements OnInit {
     this.userLogin.id = environment.id
 
     this.usuarioService.trocaSenha(this.userLogin, this.novaSenha).subscribe((resp: UsuarioLogin) => {
-      alert("Senha alterada com sucesso!")
+      this.alertas.showAlertInfo("Senha alterada com sucesso!")
 
       this.autenticacao.sair()
       
     }, erro =>{
       if(erro.status == 400){
-        alert("O campo 'senha atual' não corresponde a senha atual!")
+        this.alertas.showAlertDanger("O campo 'senha atual' não corresponde a senha atual!")
       }
     })
   }

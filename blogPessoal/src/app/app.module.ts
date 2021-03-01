@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // importanto módulo para conseguir referênciar uma rota em href
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,9 @@ import { FormsModule } from '@angular/forms';
 import { InicioComponent } from './inicio/inicio.component';
 import { TemaComponent } from './tema/tema.component';
 import { DelecaoComponent } from './delecao/delecao.component';
+import { AlertasComponent } from './alertas/alertas.component';
+
+
 
 @NgModule({
   declarations: [
@@ -24,13 +28,15 @@ import { DelecaoComponent } from './delecao/delecao.component';
     CadastrarComponent,
     InicioComponent,
     TemaComponent,
-    DelecaoComponent
+    DelecaoComponent,
+    AlertasComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ModalModule.forRoot()
   ],
   // importanto rotas para utilizar o LocationStrategy e HashLocationStrategy
   providers: [

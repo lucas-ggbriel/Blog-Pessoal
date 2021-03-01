@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment.prod';
 import { Postagens } from '../model/Postagens';
 import { Temas } from '../model/Temas';
 import { Usuario } from '../model/Usuario';
+import { AlertasService } from '../service/alertas.service';
 import { AutenticacaoService } from '../service/autenticacao.service';
 import { PostagemService } from '../service/postagem.service';
 import { TemaService } from '../service/tema.service';
@@ -38,12 +39,13 @@ export class InicioComponent implements OnInit {
    private auth: AutenticacaoService,
    private temaService: TemaService,
    private usuarioService: UsuarioService,
-   private postagemService: PostagemService
+   private postagemService: PostagemService,
+   private alertas: AlertasService
   ) { }
 
   ngOnInit(){
     if(environment.token == ''){
-      alert(environment.mensagemLogado)
+      this.alertas.showAlertInfo(environment.mensagemLogado)
       this.auth.sair()
     }else{
       window.scroll(0,0)
@@ -52,7 +54,17 @@ export class InicioComponent implements OnInit {
       this.usuarioPostagem()
     }
   }
+  //método para aparição das mensagens de nenhuma postagem
+  semPostagem(){
+    let aparece = false
 
+    if(this.postagensLista.length == 0){
+      aparece = true
+    }
+
+    return aparece
+  }
+  
   // método para busca dos dados do usuário que está cadastrando uma postagem
   usuarioPostagem(){
     return this.usuarioService.usuarioPostagem(environment.id).subscribe((resp: Usuario) => {
@@ -121,7 +133,8 @@ export class InicioComponent implements OnInit {
     this.postagem.usuario = this.usuario
 
     this.postagemService.cadastroPostagem(this.postagem).subscribe(() => {
-      alert("Postagem cadastrada com sucesso!")
+      this.alertas.showAlertSucess("Postagem cadastrada com sucesso!")
+
       this.findAllPostagens()
       this.postagem = new Postagens()
 
@@ -137,7 +150,7 @@ export class InicioComponent implements OnInit {
     this.postagem.tema = this.temaCadastro
 
     return this.postagemService.putPostagem(this.postagem).subscribe(() => {
-      alert("Postagem atualizada com sucesso!")
+      this.alertas.showAlertSucess("Postagem atualizada com sucesso!")
       this.findPostagemByUser()
       this.postagem = new Postagens()
       this.idTemaCadastro = 0
@@ -147,9 +160,9 @@ export class InicioComponent implements OnInit {
   // método para deleção
   deletarPostagem(){
     return this.postagemService.deletarPostagem(this.postagem.id).subscribe(() => {
-      alert("Postagem deletada com sucesso!")
-
+      this.alertas.showAlertInfo("Postagem deletada!")
       this.findPostagemByUser()
+      this.findAllPostagens()
       this.postagem = new Postagens()
       this.idTemaCadastro = 0
     })

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Temas } from '../model/Temas';
+import { AlertasService } from '../service/alertas.service';
 import { AutenticacaoService } from '../service/autenticacao.service';
 import { TemaService } from '../service/tema.service'
 
@@ -17,12 +18,13 @@ export class TemaComponent implements OnInit {
   
   constructor(
    private temaService: TemaService,
-   private auth: AutenticacaoService
+   private auth: AutenticacaoService,
+   private alertas: AlertasService
   ) { }
 
   ngOnInit(){
     if(environment.token == ''){
-      alert(environment.mensagemLogado)
+      this.alertas.showAlertInfo(environment.mensagemLogado)
       this.auth.sair()
     }else{
       this.findAllTemas()
@@ -45,7 +47,7 @@ export class TemaComponent implements OnInit {
 
     this.temaService.postTemas(this.tema).subscribe((resp: Temas) => {
       this.tema = resp
-      alert('Tema cadastrado com sucesso!')
+      this.alertas.showAlertSucess("Tema cadastrado com sucesso!")
       this.findAllTemas()
       this.tema = new Temas()
     })
@@ -54,14 +56,14 @@ export class TemaComponent implements OnInit {
 
   atualizarTema(){
     this.temaService.putTemas(this.temaListagem).subscribe(() => {
-      alert('Tema atualizado com sucesso!')
+      this.alertas.showAlertSucess('Tema atualizado com sucesso!')
       this.findAllTemas()
     })
   }
 
   deletarTema(id: number){
     this.temaService.deleteTema(id).subscribe(() => {
-      alert('Tema deletado com sucesso!')
+      this.alertas.showAlertInfo("Tema deletado!")
       this.findAllTemas()
     })
   }

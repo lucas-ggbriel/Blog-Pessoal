@@ -5,6 +5,5 @@ export const environment = {
   id: 0,
   foto: "",
   usuario: "",
-  mensagemLogado: "Sua seção expirou! faça o login novamente para continuar navegando.",
-  sair: 0
+  mensagemLogado: "Sua seção expirou! faça o login novamente para continuar navegando."
 };

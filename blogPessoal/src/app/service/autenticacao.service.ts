@@ -40,8 +40,6 @@ export class AutenticacaoService {
     environment.token = ''
     environment.nome = ''
     environment.foto = ''
-    environment.sair = 1
-
     
   }
 }

@@ -43,8 +43,8 @@
     <nav>
 
         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-            <a class="nav-link active text-secondary font-weight-bold" id="nav-postagens-tab" data-toggle="tab"
-                href="#nav-postagens" role="tab" aria-controls="nav-postagens" aria-selected="true">Todas as
+            <a class="nav-link text-secondary font-weight-bold active" id="nav-postagens-tab" data-toggle="tab"
+                href="#nav-postagens" role="tab" aria-controls="nav-postagens" aria-selected="true" (click)="findAllPostagens()">Todas as
                 postagens</a>
 
             <a class="nav-link text-secondary font-weight-bold" id="nav-minhaspostagens-tab" data-toggle="tab"
@@ -65,7 +65,7 @@
         <!-- Todas as postágens -->
         <div class="tab-pane fade show active" id="nav-postagens" role="tabpanel" aria-labelledby="nav-postagens-tab">
 
-            <div class="row d-flex justify-content-center p-3 pt-5">
+            <div *ngIf = "semPostagem() == false" class="row d-flex justify-content-center p-3 pt-5">
                 <div class="col-md-4">
                     <input type="text" class="form-control text-center" placeholder="Pesquise aqui por uma publicação">
                 </div>
@@ -85,6 +85,12 @@
                     </div>
                 </div>
 
+            </div> 
+            
+            <div *ngIf="semPostagem() == true" class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center text-secondary">Ainda não há postagens 😭</h2>
+                </div>
             </div>
 
         </div>
@@ -111,13 +117,19 @@
                             <button class="btn btn-link" data-toggle="modal" data-target="#edicaop"
                                 (click)="findPostagemById(post.id)">Editar</button>
 
-                            <button class="btn btn-link text-dark" data-toggle="modal"
+                            <button class="btn btn-link text-danger" data-toggle="modal"
                                 data-target="#delecaop" (click)="findPostagemById(post.id)">Deletar</button>
 
                         </div>
                     </div>
                 </div>
 
+            </div>
+
+            <div *ngIf="semPostagem() == true" class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center text-secondary">Você ainda não postou nada 😔</h2>
+                </div>
             </div>
 
         </div>
