@@ -73,7 +73,7 @@
 
             <div class="card-columns p-4">
 
-                <div class="card text-center" *ngFor="let post of postagensLista">
+                <div class="card text-center" *ngFor="let post of postagensLista | orderBy : key : reverse">
                     <div class="card-body shadow-sm p-3 bg-white rounded">
                         <h5 class="card-title">{{post.titulo}}</h5>
                         <small class="text-muted pb-3">Tema: {{post.tema.descricao}}</small>
@@ -102,7 +102,7 @@
 
             <div class="card-columns p-4">
 
-                <div class="card text-center" *ngFor="let post of postagensUser">
+                <div class="card text-center" *ngFor="let post of postagensUser | orderBy : key : reverse">
                     <div class="card-body shadow-sm p-3 bg-white rounded">
                         <h5 class="card-title">{{post.titulo}}</h5>
                         <small class="text-muted pb-3">Tema: {{post.tema.descricao}}</small>
@@ -151,7 +151,7 @@
             </div>
 
             <div class="card-columns p-4">
-                <div class="card text-center" *ngFor="let post of tema.postagens">
+                <div class="card text-center" *ngFor="let post of tema.postagens | orderBy : key : reverse">
 
                     <div class="card-body shadow-sm p-3 bg-white rounded">
                         <h5 class="card-title">{{post.titulo}}</h5>

@@ -35,6 +35,10 @@ export class InicioComponent implements OnInit {
   // validação do ngIf de postagens por tema
   ok: boolean = false
 
+  //orderBy (ordenação dos laços)
+  key = 'data'
+  reverse = true
+  
   constructor(
    private auth: AutenticacaoService,
    private temaService: TemaService,
