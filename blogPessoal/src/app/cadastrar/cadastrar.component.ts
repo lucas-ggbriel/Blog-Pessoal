@@ -45,6 +45,10 @@ export class CadastrarComponent implements OnInit {
         this.alertas.showAlertSucess("Usuário cadastrado com sucesso!")
         
 
+      }, erro => {
+        if(erro.status = 409){
+          this.alertas.showAlertDanger("Este nome de usuário já existe!")
+        }
       })
     }
   }

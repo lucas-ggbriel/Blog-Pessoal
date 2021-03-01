@@ -42,7 +42,7 @@ export class InicioComponent implements OnInit {
   reverse = true
 
   constructor(
-    private auth: AutenticacaoService,
+    public auth: AutenticacaoService,
     private temaService: TemaService,
     private usuarioService: UsuarioService,
     private postagemService: PostagemService,

@@ -34,12 +34,22 @@ export class AutenticacaoService {
     return ok
   }
 
+  adm(){
+    let adm = false
+
+    if(environment.tipo == "admin"){
+      adm = true
+    }
+
+    return adm
+  }
+
   sair(){
     this.router.navigate(["/entrar"])
     environment.id = 0
     environment.token = ''
     environment.nome = ''
     environment.foto = ''
-    
+    environment.tipo = ''
   }
 }

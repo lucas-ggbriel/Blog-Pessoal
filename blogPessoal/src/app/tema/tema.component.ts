@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { Temas } from '../model/Temas';
 import { AlertasService } from '../service/alertas.service';
@@ -19,16 +20,23 @@ export class TemaComponent implements OnInit {
   constructor(
    private temaService: TemaService,
    private auth: AutenticacaoService,
-   private alertas: AlertasService
+   private alertas: AlertasService,
+   private router: Router
   ) { }
 
   ngOnInit(){
     if(environment.token == ''){
       this.alertas.showAlertInfo(environment.mensagemLogado)
       this.auth.sair()
-    }else{
+    }else if(this.auth.adm() == false){
+      this.alertas.showAlertInfo("É preciso ser um administrador para cadastrar novos temas!")
+      this.router.navigate(["/inicio"])
+    }
+    else{
       this.findAllTemas()
     }
+
+    
   }
   
   findAllTemas(){
