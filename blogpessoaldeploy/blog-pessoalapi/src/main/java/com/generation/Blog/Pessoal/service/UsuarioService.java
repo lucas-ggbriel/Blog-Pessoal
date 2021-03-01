@@ -46,11 +46,15 @@ public class UsuarioService {
 	
 	public Usuario CadastrarUsuario(Usuario usuario) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-		String senhaEncoder = encoder.encode(usuario.getSenha());
-		usuario.setSenha(senhaEncoder);
-
-		return repository.save(usuario);
+				
+		if(repository.findByUsuario(usuario.getUsuario()).isEmpty()) {
+			String senhaEncoder = encoder.encode(usuario.getSenha());
+			usuario.setSenha(senhaEncoder);
+			return repository.save(usuario);
+		}else {
+			return null;
+		}
+		
 	}
 	
 	public Optional<UserLogin> logar(Optional<UserLogin> user){

@@ -44,7 +44,11 @@ public class UsuarioController {
 
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> Post(@RequestBody Usuario usuario) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.CadastrarUsuario(usuario));
+		if(usuarioService.CadastrarUsuario(usuario) != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(usuario);			
+		}else{
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(usuario);
+		}
 	}
 
 	@PutMapping("/trocaSenha/{novaSenha}")

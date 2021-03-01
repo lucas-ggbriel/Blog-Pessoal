@@ -14,4 +14,5 @@ public interface PostagensRepository extends JpaRepository<Postagens, Long>{
 	@Query(value = "select * from postagens where usuario_id = :id", nativeQuery = true)
 	public List<Postagens> postagensByUser(@Param("id") long id);
 	
+	public List<Postagens> findAllByTituloContainingIgnoreCase(String titulo);
 }
