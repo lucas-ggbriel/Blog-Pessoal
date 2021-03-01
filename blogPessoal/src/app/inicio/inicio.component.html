@@ -44,7 +44,7 @@
 
         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
             <a class="nav-link text-secondary font-weight-bold active" id="nav-postagens-tab" data-toggle="tab"
-                href="#nav-postagens" role="tab" aria-controls="nav-postagens" aria-selected="true" (click)="findAllPostagens()">Todas as
+                href="#nav-postagens" role="tab" aria-controls="nav-postagens" aria-selected="true" (click)="findAllPostagens() && titulo = ''">Todas as
                 postagens</a>
 
             <a class="nav-link text-secondary font-weight-bold" id="nav-minhaspostagens-tab" data-toggle="tab"
@@ -65,9 +65,9 @@
         <!-- Todas as postágens -->
         <div class="tab-pane fade show active" id="nav-postagens" role="tabpanel" aria-labelledby="nav-postagens-tab">
 
-            <div *ngIf = "semPostagem() == false" class="row d-flex justify-content-center p-3 pt-5">
+            <div *ngIf="semPostagem() == false" class="row d-flex justify-content-center p-3 pt-5">
                 <div class="col-md-4">
-                    <input type="text" class="form-control text-center" placeholder="Pesquise aqui por uma publicação">
+                    <input [(ngModel)]="titulo" type="text" class="form-control text-center" placeholder="Pesquise aqui por uma publicação" (keyup)="findAllPostagensByTitulo()">
                 </div>
             </div>
 
@@ -92,6 +92,13 @@
                     <h2 class="text-center text-secondary">Ainda não há postagens 😭</h2>
                 </div>
             </div>
+
+            <div *ngIf="aparece == 1" class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center text-secondary">Não existe nenhuma postagem com esse título 😕</h2>
+                </div>
+            </div>
+
 
         </div>
         <!-- /todas as postagens -->

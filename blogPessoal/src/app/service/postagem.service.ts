@@ -33,6 +33,10 @@ export class PostagemService {
   listarPostagensByUser(id: number): Observable<Postagens[]>{
     return this.http.get<Postagens[]>(`http://localhost:8080/Postagens/postagens/${id}`, this.token)
   }
+  
+  listarPostagensByTitulo(titulo: string): Observable<Postagens[]>{
+    return this.http.get<Postagens[]>(`http://localhost:8080/Postagens/titulo/${titulo}`, this.token)
+  }
 
   postagemPorId(id: number): Observable<Postagens>{
     return this.http.get<Postagens>(`http://localhost:8080/Postagens/${id}`, this.token)

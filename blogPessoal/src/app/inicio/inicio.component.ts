@@ -15,7 +15,7 @@ import { UsuarioService } from '../service/usuario.service';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-  
+
   // variáveis e arrays de postagem
   idPostagem: number
   postagensLista: Postagens[]
@@ -25,6 +25,8 @@ export class InicioComponent implements OnInit {
   // variáveis e arrays de temas
   idTema: number
   idTemaCadastro: number
+  titulo: string
+  aparece = 0
   tema: Temas = new Temas()
   temaCadastro = new Temas()
   temaLista: Temas[]
@@ -38,101 +40,119 @@ export class InicioComponent implements OnInit {
   //orderBy (ordenação dos laços)
   key = 'data'
   reverse = true
-  
+
   constructor(
-   private auth: AutenticacaoService,
-   private temaService: TemaService,
-   private usuarioService: UsuarioService,
-   private postagemService: PostagemService,
-   private alertas: AlertasService
+    private auth: AutenticacaoService,
+    private temaService: TemaService,
+    private usuarioService: UsuarioService,
+    private postagemService: PostagemService,
+    private alertas: AlertasService
   ) { }
 
-  ngOnInit(){
-    if(environment.token == ''){
+  ngOnInit() {
+    if (environment.token == '') {
       this.alertas.showAlertInfo(environment.mensagemLogado)
       this.auth.sair()
-    }else{
-      window.scroll(0,0)
+    } else {
+      window.scroll(0, 0)
       this.findAllTemas()
       this.findAllPostagens()
       this.usuarioPostagem()
     }
   }
   //método para aparição das mensagens de nenhuma postagem
-  semPostagem(){
+  semPostagem() {
     let aparece = false
 
-    if(this.postagensLista.length == 0){
+    if (this.postagensLista.length == 0 && this.aparece == 0) {
       aparece = true
     }
 
     return aparece
   }
-  
+
   // método para busca dos dados do usuário que está cadastrando uma postagem
-  usuarioPostagem(){
+  usuarioPostagem() {
     return this.usuarioService.usuarioPostagem(environment.id).subscribe((resp: Usuario) => {
       this.usuario = resp
     })
   }
 
   // listagem de todos os temas
-  findAllTemas(){
-    return this.temaService.getAllTemas().subscribe((resp: Temas[]) =>{
+  findAllTemas() {
+    return this.temaService.getAllTemas().subscribe((resp: Temas[]) => {
       this.temaLista = resp
     })
   }
 
   // listagem de todas as postagens
-  findAllPostagens(){
+  findAllPostagens() {
     return this.postagemService.listagemPostagens().subscribe((resp: Postagens[]) => {
       this.postagensLista = resp
     })
   }
 
+  // listagem de postagens por título
+  findAllPostagensByTitulo() {
+
+    if (this.titulo == '') {
+      return this.findAllPostagens()
+    } else {
+      return this.postagemService.listarPostagensByTitulo(this.titulo).subscribe((resp: Postagens[]) => {
+        this.postagensLista = resp
+
+        if(this.postagensLista.length == 0){
+          this.aparece = 1
+        }else{
+          this.aparece = 0
+        }
+      })
+    }
+  }
+
   // busca de todas as postagens de um tema específico
-  findPostagemByTema(){
+  findPostagemByTema() {
     return this.postagemService.listarPostagensByTema().subscribe((resp: Temas) => {
 
     })
   }
 
   // busca de todas as postagens do usuário que está logado
-  findPostagemByUser(){
+  findPostagemByUser() {
     return this.postagemService.listarPostagensByUser(environment.id).subscribe((resp: Postagens[]) => {
       this.postagensUser = resp
     })
   }
 
   // busca uma postagem usando o id como paramêtro
-  findPostagemById(id: number){
+  findPostagemById(id: number) {
     return this.postagemService.postagemPorId(id).subscribe((resp: Postagens) => {
       this.postagem = resp
     })
   }
 
   // busca de um tema usando id como paramêtro; nesse método usamos os dados retornados no objeto temaCadastro para cadastro de um novo tema
-  findTemaId(id: number){
+  findTemaId(id: number) {
     return this.temaService.getByIdTemas(id).subscribe((resp: Temas) => {
       this.temaCadastro = resp
     })
   }
 
   // busca de um tema específico que utiliza o id como paramêtro
-  findTemaById(id: number){
+  findTemaById(id: number) {
     return this.temaService.getByIdTemas(id).subscribe((resp: Temas) => {
       this.tema = resp
 
-      if(this.tema.postagens.length == 0){
+      if (this.tema.postagens.length == 0) {
         this.ok = true
-      }else{
+      } else {
         this.ok = false
       }
-    }) 
+    })
   }
 
   // método para o cadastro de uma nova postagem
-  cadastrarPostagem(){
+  cadastrarPostagem() {
     this.postagem.tema = this.temaCadastro
     this.postagem.usuario = this.usuario
 
@@ -150,7 +170,7 @@ export class InicioComponent implements OnInit {
   }
 
   // método para atualização de uma postagem
-  putPostagem(){
+  putPostagem() {
     this.postagem.tema = this.temaCadastro
 
     return this.postagemService.putPostagem(this.postagem).subscribe(() => {
@@ -162,18 +182,20 @@ export class InicioComponent implements OnInit {
   }
 
   // método para deleção
-  deletarPostagem(){
+  deletarPostagem() {
     return this.postagemService.deletarPostagem(this.postagem.id).subscribe(() => {
       this.alertas.showAlertInfo("Postagem deletada!")
       this.findPostagemByUser()
       this.findAllPostagens()
+      this.findTemaById(this.idTema)
       this.postagem = new Postagens()
       this.idTemaCadastro = 0
+      this.aparece = 0
     })
   }
 
   // limpar campos do objeto postagem
-  limpar(){
+  limpar() {
     this.postagem = new Postagens()
     this.idTemaCadastro = 0
   }
